@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_shared_post_details",
+  "info": {
+    "displayName": "post details"
+  },
+  "options": {},
+  "attributes": {
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "details",
+        "pricePerCar",
+        "route",
+        "howToReserve",
+        "itinerary",
+        "downloadItineraryAndMaps"
+      ],
+      "required": true
+    },
+    "description": {
+      "type": "richtext",
+      "required": true
+    },
+    "files": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "type": "media",
+      "multiple": true,
+      "required": false
+    }
+  }
+}
