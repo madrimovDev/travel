@@ -9,6 +9,7 @@ import Footer from './ui/footer/footer'
 import { getGlobal } from '@/actions/get-global'
 import { Facebook, Instagram, PhoneCall, Send as Telegram } from 'lucide-react'
 import { WhatsAppIcon } from './ui/icons/whatsapp-icon'
+import NavigateTop from './ui/navigate-top'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -84,6 +85,7 @@ export default async function RootLayout({
           />
           {children}
           <FloatButton socialLinks={socialLinks} />
+          <NavigateTop />
           <Toaster />
         </main>
         <Footer />

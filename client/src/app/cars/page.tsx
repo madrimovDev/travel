@@ -37,7 +37,8 @@ export default function CarsPage() {
 
   useEffect(() => {
     if (typeParam && carTypes.includes(typeParam)) setCurrentType(typeParam)
-  }, [typeParam, carTypes])
+    else setCurrentType(defaultType)
+  }, [typeParam, carTypes, defaultType])
 
   const handleTabChange = (type: string) => {
     setCurrentType(type)
