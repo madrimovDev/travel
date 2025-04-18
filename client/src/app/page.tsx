@@ -20,7 +20,7 @@ export const metadata = async () => {
       url: process.env.NEXT_PUBLIC_STRAPI_URL,
       images: [
         {
-          url: `${process.env.NEXT_PUBLIC_STRAPI_URL}${data.banner.formats.medium.url}`,
+          url: `${process.env.NEXT_PUBLIC_STRAPI_URL}${data.banner.formats.medium.path}`,
           width: 800,
           height: 600
         }

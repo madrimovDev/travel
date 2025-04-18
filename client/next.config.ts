@@ -24,6 +24,14 @@ const nextConfig: NextConfig = {
       {
         protocol: 'http',
         hostname: 'localhost'
+      },
+      {
+        protocol: 'http',
+        hostname: 'travel-api.madrimov.uz'
+      },
+      {
+        protocol: 'https',
+        hostname: 'travel-api.madrimov.uz'
       }
     ]
   }
