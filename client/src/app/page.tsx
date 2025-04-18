@@ -7,6 +7,8 @@ import Categories from './ui/categories/categories'
 import GallerySection from './ui/gallery-section/gallery-section'
 import ContactSection from './ui/contact-section/contact-section'
 
+export const revalidate = 3600 // 1 hour
+
 export const metadata = async () => {
   const { data } = await getGlobal()
   return {

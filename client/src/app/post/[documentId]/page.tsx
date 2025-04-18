@@ -25,6 +25,9 @@ import EmptyState from '@/components/empty-state'
 import { Metadata } from 'next'
 import { normalizeType } from '@/lib/utils'
 
+export const revalidate = 3600 // 1 hour
+
+
 interface Props {
   params: Promise<{ documentId: string }>
 }

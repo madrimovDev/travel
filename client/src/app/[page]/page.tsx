@@ -7,6 +7,8 @@ interface PageProps {
   searchParams: Promise<{ view?: 'sinle' | 'card' }>
 }
 
+export const revalidate = 3600 // 1 hour
+
 export async function generateMetadata({ params }: PageProps) {
   const { page } = await params
   if (!page) {
