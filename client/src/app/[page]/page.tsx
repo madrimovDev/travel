@@ -4,13 +4,14 @@ import EmptyState from '@/components/empty-state'
 
 interface PageProps {
   params: Promise<{ page: string }>
-  searchParams: Promise<{ view?: 'sinle' | 'card' }>
+  searchParams: Promise<{ view?: 'single' | 'card' }>
 }
 
 export const revalidate = 3600 // 1 hour
 
-export async function generateMetadata({ params }: PageProps) {
-  const { page } = await params
+export async function generateMetadata({ params }: { params: Promise<{ page: string }> }) {
+  const resolvedParams = await params
+  const { page } = resolvedParams
   if (!page) {
     return {
       title: 'All Posts',
@@ -23,6 +24,17 @@ export async function generateMetadata({ params }: PageProps) {
   // Базовые значения по умолчанию
   const defaultTitle = 'All Posts'
   const defaultDescription = 'Explore our collection of travel posts and adventures'
+  const defaultImage = `${process.env.NEXT_PUBLIC_STRAPI_URL}/default-og.jpg`
+
+  let imageUrl = defaultImage
+  if (data && data.length > 0) {
+    // Берём баннер поста, если есть, иначе баннер категории, иначе дефолт
+    imageUrl = data[0]?.banner?.url
+      ? data[0].banner.url.startsWith('http')
+        ? data[0].banner.url
+        : `${process.env.NEXT_PUBLIC_STRAPI_URL}${data[0].banner.url}`
+      : defaultImage
+  }
 
   if (!data || data.length === 0) {
     return {
@@ -38,7 +50,7 @@ export async function generateMetadata({ params }: PageProps) {
         siteName: 'Travel Blog',
         images: [
           {
-            url: `${process.env.NEXT_PUBLIC_STRAPI_URL}/default-og.jpg`,
+            url: imageUrl,
             width: 1200,
             height: 630,
             alt: defaultTitle
@@ -49,7 +61,7 @@ export async function generateMetadata({ params }: PageProps) {
         card: 'summary_large_image',
         title: defaultTitle,
         description: defaultDescription,
-        images: [`${process.env.NEXT_PUBLIC_STRAPI_URL}/default-og.jpg`]
+        images: [imageUrl]
       },
       alternates: {
         canonical: `${process.env.NEXT_PUBLIC_STRAPI_URL}/${page}`
@@ -61,8 +73,8 @@ export async function generateMetadata({ params }: PageProps) {
     }
   }
 
-  const title = data[0]?.category.title || defaultTitle
-  const description = data[0]?.category.description || defaultDescription
+  const title = data[0]?.category?.title || defaultTitle
+  const description = data[0]?.category?.description || defaultDescription
   const categoryKeywords = 'travel, blog, adventures'
   const canonicalUrl = `${process.env.NEXT_PUBLIC_STRAPI_URL}/${page}`
 
@@ -76,12 +88,21 @@ export async function generateMetadata({ params }: PageProps) {
       url: canonicalUrl,
       type: 'website',
       locale: 'en_US',
-      siteName: 'Travel Blog'
+      siteName: 'Travel Blog',
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: title
+        }
+      ]
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
+      images: [imageUrl],
       creator: '@travelblog'
     },
     alternates: {
@@ -94,14 +115,14 @@ export async function generateMetadata({ params }: PageProps) {
   }
 }
 
-export default async function Page({ params, searchParams }: PageProps) {
-  const { page } = await params
-  const { view } = await searchParams
+export default async function Page({ params }: PageProps) {
+  const resolvedParams = await params
+  const { page } = resolvedParams
 
   const posts = await getPosts(page, 1, 20)
-  const category = posts.data[0]?.category
+  const category = posts.data && posts.data[0]?.category
 
-  if (!posts || posts.data.length === 0) {
+  if (!posts || !posts.data || posts.data.length === 0) {
     return <EmptyState />
   }
 
@@ -115,20 +136,13 @@ export default async function Page({ params, searchParams }: PageProps) {
             <span className='text-2xl font-bold'>All Posts</span>
           )}
         </h1>
-        <p>{category.description}</p>
+        <p>{category?.description}</p>
       </div>
 
-      {view === 'sinle' ? (
-        <SingleLinePosts
-          posts={posts}
-          categorySlug={page}
-        />
-      ) : (
-        <SingleLinePosts
-          posts={posts}
-          categorySlug={page}
-        />
-      )}
+      <SingleLinePosts
+        posts={posts}
+        categorySlug={page}
+      />
     </main>
   )
 }

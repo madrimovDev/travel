@@ -6,8 +6,8 @@ const apiUrl = process.env.NEXT_PUBLIC_STRAPI_URL
 
 interface Props {
   gallery: {
-    formats: Formats
-    name: string
+    formats: Formats | null
+    name: string | null
   }[]
 }
 
@@ -21,10 +21,10 @@ export default function Gallery({ gallery }: Props) {
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4'>
         {gallery.map((item, index) => {
           const imageUrl =
-            item.formats.medium?.url ||
-            item.formats.small?.url ||
-            item.formats.thumbnail?.url ||
-            item.formats.large?.url
+            item.formats?.medium?.url ||
+            item.formats?.small?.url ||
+            item.formats?.thumbnail?.url ||
+            item.formats?.large?.url
 
           if (!imageUrl) return null
 
@@ -32,7 +32,10 @@ export default function Gallery({ gallery }: Props) {
             <div
               key={index}
               className='group relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 p-[2px]'>
-              <ShineBorder borderWidth={2} shineColor={['#A07CFE', '#FE8FB5', '#FFBE7B']} />
+              <ShineBorder
+                borderWidth={2}
+                shineColor={['#A07CFE', '#FE8FB5', '#FFBE7B']}
+              />
               <div className='aspect-square relative '>
                 <Image
                   src={apiUrl + imageUrl}

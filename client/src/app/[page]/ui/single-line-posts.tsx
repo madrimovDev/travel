@@ -16,12 +16,7 @@ import {
   AccordionItem,
   AccordionTrigger
 } from '@/components/ui/accordion'
-import {
-  Dialog,
-  DialogContent,
-  DialogOverlay,
-  DialogTitle
-} from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogOverlay, DialogTitle } from '@/components/ui/dialog'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { CalendarIcon, ImageIcon, ChevronRight, FileText, X } from 'lucide-react'
@@ -37,10 +32,10 @@ interface Props {
 }
 
 export default function SingleLinePosts({ posts, categorySlug }: Props) {
-  const { page, pageCount, total } = posts.meta.pagination
+  const { page = 1, pageCount = 1, total = 0 } = posts?.meta?.pagination ?? {}
   const [openImageDialog, setOpenImageDialog] = useState(false)
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
-  
+
   const openImagePreview = (imageUrl: string) => {
     setSelectedImage(imageUrl)
     setOpenImageDialog(true)
@@ -49,9 +44,9 @@ export default function SingleLinePosts({ posts, categorySlug }: Props) {
   return (
     <div className='container mx-auto lg:max-w-6xl py-8 px-4'>
       <div className='flex flex-col gap-8'>
-        {posts.data.map(post => (
+        {(posts?.data && Array.isArray(posts.data) ? posts.data : []).map(post => (
           <div
-            key={post.id}
+            key={post?.id ?? Math.random()}
             className='space-y-6 border border-gray-200 p-3 md:p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300'>
             <div className='flex flex-col md:grid md:grid-cols-[1fr_auto] gap-6 md:gap-8'>
               <Card className='overflow-hidden shadow-none border-none p-0'>
@@ -64,13 +59,15 @@ export default function SingleLinePosts({ posts, categorySlug }: Props) {
                           className='text-gray-500'
                         />
                         <span className='text-sm text-gray-500'>
-                          {new Date(post.publishedAt).toLocaleDateString('ru-RU', {
-                            day: 'numeric',
-                            month: 'long',
-                            year: 'numeric'
-                          })}
+                          {post?.publishedAt
+                            ? new Date(post.publishedAt).toLocaleDateString('ru-RU', {
+                                day: 'numeric',
+                                month: 'long',
+                                year: 'numeric'
+                              })
+                            : '—'}
                         </span>
-                        {post.category && (
+                        {post?.category?.title && (
                           <Badge
                             variant='secondary'
                             className='ml-2 font-medium'>
@@ -79,33 +76,37 @@ export default function SingleLinePosts({ posts, categorySlug }: Props) {
                         )}
                       </div>
                       <CardTitle className='text-2xl sm:text-3xl font-bold text-gray-800 hover:text-blue-600 transition-colors'>
-                        <Link href={`/post/${post.documentId}`}>{post.title}</Link>
+                        <Link href={`/post/${post?.documentId ?? ''}`}>
+                          {post?.title || 'Без названия'}
+                        </Link>
                       </CardTitle>
                     </CardHeader>
                     <CardContent className='p-0 mt-3'>
                       <p className='text-gray-600 text-base leading-relaxed line-clamp-3'>
-                        {post.description}
+                        {post?.description || ''}
                       </p>
                     </CardContent>
                     <CardFooter className='p-0 flex justify-between items-center mt-6'>
                       <div className='flex gap-2'>
-                        {post.gallery && post.gallery.length > 0 && (
-                          <span className='text-xs font-medium text-gray-600 flex items-center gap-1'>
-                            <Badge
-                              variant='outline'
-                              className='flex items-center gap-1 py-1'>
-                              <ImageIcon size={14} />
-                              {post.gallery.length} фото
-                            </Badge>
-                          </span>
-                        )}
+                        {post?.gallery &&
+                          Array.isArray(post.gallery) &&
+                          post.gallery.length > 0 && (
+                            <span className='text-xs font-medium text-gray-600 flex items-center gap-1'>
+                              <Badge
+                                variant='outline'
+                                className='flex items-center gap-1 py-1'>
+                                <ImageIcon size={14} />
+                                {post.gallery.length} фото
+                              </Badge>
+                            </span>
+                          )}
                       </div>
                       <Button
                         variant='default'
                         size='sm'
                         className='gap-2 transition-all duration-300 hover:gap-3'
                         asChild>
-                        <Link href={`/post/${post.documentId}`}>
+                        <Link href={`/post/${post?.documentId ?? ''}`}>
                           Read More <ChevronRight size={16} />
                         </Link>
                       </Button>
@@ -113,14 +114,21 @@ export default function SingleLinePosts({ posts, categorySlug }: Props) {
                   </div>
                 </div>
               </Card>
-              {post.banner && (
-                <div 
+              {post?.banner && (
+                <div
                   className='md:w-[300px] lg:w-[380px] h-[220px] md:h-[260px] relative rounded-xl overflow-hidden order-first md:order-last group cursor-pointer'
-                  onClick={() => openImagePreview(`${process.env.NEXT_PUBLIC_STRAPI_URL}${post.banner.formats.large?.url || post.banner.url}`)}
-                >
+                  onClick={() =>
+                    openImagePreview(
+                      `${process.env.NEXT_PUBLIC_STRAPI_URL}${
+                        post.banner?.formats?.large?.url || post.banner?.url || ''
+                      }`
+                    )
+                  }>
                   <Image
-                    src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${post.banner.formats.small?.url}`}
-                    alt={post.banner.alternativeText || post.title}
+                    src={`${process.env.NEXT_PUBLIC_STRAPI_URL}${
+                      post.banner.formats?.small?.url || post.banner.url || ''
+                    }`}
+                    alt={post.banner.alternativeText || post.title || 'Изображение'}
                     className='object-contain rounded-xl transition-transform duration-500 group-hover:scale-105'
                     fill
                     sizes='(max-width: 768px) 100vw, (max-width: 1200px) 300px, 380px'
@@ -129,7 +137,7 @@ export default function SingleLinePosts({ posts, categorySlug }: Props) {
                 </div>
               )}
             </div>
-            {post.details && post.details.length > 0 && (
+            {post?.details && Array.isArray(post.details) && post.details.length > 0 && (
               <div className='mt-4'>
                 <div className='flex items-center gap-2 mb-3'>
                   <FileText
@@ -140,22 +148,22 @@ export default function SingleLinePosts({ posts, categorySlug }: Props) {
                 </div>
                 <Accordion
                   type='multiple'
-                  defaultValue={[`detail-${post.details[0].id.toString()}`]}
+                  defaultValue={[`detail-${post.details[0]?.id?.toString?.() ?? ''}`]}
                   className='w-full border rounded-lg overflow-hidden divide-y'>
                   {post.details.map(detail => {
-                    const typeToNormalize = normalizeType(detail.type)
+                    const typeToNormalize = normalizeType(detail?.type ?? '')
 
                     return (
                       <AccordionItem
-                        key={detail.id}
-                        value={`detail-${detail.id}`}
+                        key={detail?.id ?? Math.random()}
+                        value={`detail-${detail?.id ?? ''}`}
                         className='border-none'>
                         <AccordionTrigger className='px-4 py-3 hover:bg-gray-50 bg-gray-50/50 text-sm font-medium text-gray-800'>
                           {typeToNormalize}
                         </AccordionTrigger>
                         <AccordionContent className='px-4 py-4 bg-white'>
                           <div className='text-gray-700 prose prose-sm max-w-none'>
-                            <ReactMarkdown>{detail.description}</ReactMarkdown>
+                            <ReactMarkdown>{detail?.description || ''}</ReactMarkdown>
                           </div>
                         </AccordionContent>
                       </AccordionItem>
@@ -168,7 +176,7 @@ export default function SingleLinePosts({ posts, categorySlug }: Props) {
         ))}
       </div>
 
-      {pageCount > 1 && (
+      {!!page && !!pageCount && pageCount > 1 && (
         <>
           <Separator className='my-8' />
           <Pagination className='my-6'>
@@ -202,30 +210,31 @@ export default function SingleLinePosts({ posts, categorySlug }: Props) {
       )}
 
       <div className='mt-4 text-center text-sm text-gray-500'>
-        All {total} {getNounPluralForm(total, 'item', 'items', 'items')}
+        All {total ?? 0} {getNounPluralForm(total ?? 0, 'item', 'items', 'items')}
       </div>
-      
-      <Dialog open={openImageDialog} onOpenChange={setOpenImageDialog}>
-        <DialogOverlay className="bg-black/80" />
-        <DialogContent className="max-w-[90vw] sm:max-w-[80vw] md:max-w-[70vw] max-h-[90vh] p-0 border-none bg-transparent shadow-xl rounded-none flex items-center justify-center">
-          <DialogTitle className="sr-only">Просмотр изображения</DialogTitle>
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            className="absolute top-4 right-4 bg-black/50 text-white hover:bg-black/70 z-10"
-            onClick={() => setOpenImageDialog(false)}
-          >
+
+      <Dialog
+        open={openImageDialog}
+        onOpenChange={setOpenImageDialog}>
+        <DialogOverlay className='bg-black/80' />
+        <DialogContent className='max-w-[90vw] sm:max-w-[80vw] md:max-w-[70vw] max-h-[90vh] p-0 border-none bg-transparent shadow-xl rounded-none flex items-center justify-center'>
+          <DialogTitle className='sr-only'>Просмотр изображения</DialogTitle>
+          <Button
+            variant='ghost'
+            size='icon'
+            className='absolute top-4 right-4 bg-black/50 text-white hover:bg-black/70 z-10'
+            onClick={() => setOpenImageDialog(false)}>
             <X size={20} />
           </Button>
-          
+
           {selectedImage && (
-            <div className="w-full h-[80vh] relative flex items-center justify-center bg-black/40 rounded-md overflow-hidden">
-              <Image 
-                src={selectedImage} 
-                alt="Увеличенное изображение" 
-                className="object-contain"
+            <div className='w-full h-[80vh] relative flex items-center justify-center bg-black/40 rounded-md overflow-hidden'>
+              <Image
+                src={selectedImage}
+                alt='Увеличенное изображение'
+                className='object-contain'
                 fill
-                sizes="(max-width: 768px) 90vw, (max-width: 1200px) 80vw, 70vw"
+                sizes='(max-width: 768px) 90vw, (max-width: 1200px) 80vw, 70vw'
                 priority
                 quality={100}
               />

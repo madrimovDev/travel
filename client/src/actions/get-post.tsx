@@ -1,203 +1,203 @@
 'use server'
 
 export interface PostResponse {
-  data: Data
+  data: Data | null
 }
 
 export interface Data {
-  id: number
-  documentId: string
-  title: string
-  description: string
-  createdAt: string
-  updatedAt: string
-  publishedAt: string
-  banner: Banner
-  gallery: Gallery[]
-  category: Category
-  details: Detail[]
+  id: number | null
+  documentId: string | null
+  title: string | null
+  description: string | null
+  createdAt: string | null
+  updatedAt: string | null
+  publishedAt: string | null
+  banner: Banner | null
+  gallery: Gallery[] | null
+  category: Category | null
+  details: Detail[] | null
 }
 
 export interface Banner {
-  id: number
-  documentId: string
-  name: string
+  id: number | null
+  documentId: string | null
+  name: string | null
   alternativeText: string | null
   caption: string | null
-  width: number
-  height: number
-  formats: Formats
-  hash: string
-  ext: string
-  mime: string
-  size: number
-  url: string
+  width: number | null
+  height: number | null
+  formats: Formats | null
+  hash: string | null
+  ext: string | null
+  mime: string | null
+  size: number | null
+  url: string | null
   previewUrl: string | null
-  provider: string
+  provider: string | null
   provider_metadata: string | null
-  createdAt: string
-  updatedAt: string
-  publishedAt: string
+  createdAt: string | null
+  updatedAt: string | null
+  publishedAt: string | null
 }
 
 export interface Formats {
-  thumbnail: Thumbnail
-  small: Small
-  medium: Medium
-  large: Large
+  thumbnail: Thumbnail | null
+  small: Small | null
+  medium: Medium | null
+  large: Large | null
 }
 
 export interface Thumbnail {
-  name: string
-  hash: string
-  ext: string
-  mime: string
+  name: string | null
+  hash: string | null
+  ext: string | null
+  mime: string | null
   path: string | null
-  width: number
-  height: number
-  size: number
-  sizeInBytes: number
-  url: string
+  width: number | null
+  height: number | null
+  size: number | null
+  sizeInBytes: number | null
+  url: string | null
 }
 
 export interface Small {
-  name: string
-  hash: string
-  ext: string
-  mime: string
+  name: string | null
+  hash: string | null
+  ext: string | null
+  mime: string | null
   path: string | null
-  width: number
-  height: number
-  size: number
-  sizeInBytes: number
-  url: string
+  width: number | null
+  height: number | null
+  size: number | null
+  sizeInBytes: number | null
+  url: string | null
 }
 
 export interface Medium {
-  name: string
-  hash: string
-  ext: string
-  mime: string
+  name: string | null
+  hash: string | null
+  ext: string | null
+  mime: string | null
   path: string | null
-  width: number
-  height: number
-  size: number
-  sizeInBytes: number
-  url: string
+  width: number | null
+  height: number | null
+  size: number | null
+  sizeInBytes: number | null
+  url: string | null
 }
 
 export interface Large {
-  name: string
-  hash: string
-  ext: string
-  mime: string
+  name: string | null
+  hash: string | null
+  ext: string | null
+  mime: string | null
   path: string | null
-  width: number
-  height: number
-  size: number
-  sizeInBytes: number
-  url: string
+  width: number | null
+  height: number | null
+  size: number | null
+  sizeInBytes: number | null
+  url: string | null
 }
 
 export interface Gallery {
-  id: number
-  documentId: string
-  name: string
+  id: number | null
+  documentId: string | null
+  name: string | null
   alternativeText: string | null
   caption: string | null
-  width: number
-  height: number
-  formats: Formats2
-  hash: string
-  ext: string
-  mime: string
-  size: number
-  url: string
+  width: number | null
+  height: number | null
+  formats: Formats2 | null
+  hash: string | null
+  ext: string | null
+  mime: string | null
+  size: number | null
+  url: string | null
   previewUrl: string | null
-  provider: string
+  provider: string | null
   provider_metadata: string | null
-  createdAt: string
-  updatedAt: string
-  publishedAt: string
+  createdAt: string | null
+  updatedAt: string | null
+  publishedAt: string | null
 }
 
 export interface Formats2 {
-  thumbnail: Thumbnail2
-  small: Small2
-  medium: Medium2
-  large?: Large2
+  thumbnail: Thumbnail2 | null
+  small: Small2 | null
+  medium: Medium2 | null
+  large?: Large2 | null
 }
 
 export interface Thumbnail2 {
-  name: string
-  hash: string
-  ext: string
-  mime: string
+  name: string | null
+  hash: string | null
+  ext: string | null
+  mime: string | null
   path: string | null
-  width: number
-  height: number
-  size: number
-  sizeInBytes: number
-  url: string
+  width: number | null
+  height: number | null
+  size: number | null
+  sizeInBytes: number | null
+  url: string | null
 }
 
 export interface Small2 {
-  name: string
-  hash: string
-  ext: string
-  mime: string
+  name: string | null
+  hash: string | null
+  ext: string | null
+  mime: string | null
   path: string | null
-  width: number
-  height: number
-  size: number
-  sizeInBytes: number
-  url: string
+  width: number | null
+  height: number | null
+  size: number | null
+  sizeInBytes: number | null
+  url: string | null
 }
 
 export interface Medium2 {
-  name: string
-  hash: string
-  ext: string
-  mime: string
+  name: string | null
+  hash: string | null
+  ext: string | null
+  mime: string | null
   path: string | null
-  width: number
-  height: number
-  size: number
-  sizeInBytes: number
-  url: string
+  width: number | null
+  height: number | null
+  size: number | null
+  sizeInBytes: number | null
+  url: string | null
 }
 
 export interface Large2 {
-  name: string
-  hash: string
-  ext: string
-  mime: string
+  name: string | null
+  hash: string | null
+  ext: string | null
+  mime: string | null
   path: string | null
-  width: number
-  height: number
-  size: number
-  sizeInBytes: number
-  url: string
+  width: number | null
+  height: number | null
+  size: number | null
+  sizeInBytes: number | null
+  url: string | null
 }
 
 export interface Category {
-  id: number
-  documentId: string
-  title: string
+  id: number | null
+  documentId: string | null
+  title: string | null
   description: string | null
-  name: string
-  viewType: string
-  createdAt: string
-  updatedAt: string
-  publishedAt: string
-  slug: string
-  order: number
+  name: string | null
+  viewType: string | null
+  createdAt: string | null
+  updatedAt: string | null
+  publishedAt: string | null
+  slug: string | null
+  order: number | null
 }
 
 export interface Detail {
-  id: number
-  type: string
-  description: string
+  id: number | null
+  type: string | null
+  description: string | null
 }
 
 export async function getPost(documentId: string): Promise<PostResponse> {

@@ -23,14 +23,15 @@ export default function CarsPage() {
   }, [])
 
   const carsByType = carsData.reduce((acc, item) => {
-    if (!acc[item.type]) acc[item.type] = []
-    acc[item.type].push(...item.car)
+    const typeKey = item.type ?? 'unknown'
+    if (!acc[typeKey]) acc[typeKey] = []
+    acc[typeKey].push(...(item.car as []))
     return acc
   }, {} as Record<string, (typeof carsData)[0]['car']>)
   const carTypes = Object.keys(carsByType)
   const defaultType = carTypes.length > 0 ? carTypes[0] : 'all'
 
-  const typeParam = searchParams.get('type')
+  const typeParam = searchParams.get('type') ?? undefined
   const [currentType, setCurrentType] = useState(
     typeParam && carTypes.includes(typeParam) ? typeParam : defaultType
   )
@@ -75,7 +76,7 @@ export default function CarsPage() {
               <Badge
                 variant='secondary'
                 className='ml-2'>
-                {carsByType[type].length}
+                {carsByType[type]?.length}
               </Badge>
             </TabsTrigger>
           ))}
@@ -86,26 +87,39 @@ export default function CarsPage() {
             value={type}
             className='mt-4'>
             <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-4 md:gap-6 w-full'>
-              {carsByType[type].map(car => (
-                <Card
-                  key={`${type}-${car.id}`}
-                  className='overflow-hidden transition-all hover:shadow-lg p-0 rounded-lg bg-white'>
-                  <div className='aspect-square relative overflow-hidden'>
-                    <Image
-                      src={process.env.NEXT_PUBLIC_STRAPI_URL + car.formats.large.url}
-                      alt={car.alternativeText || car.name}
-                      fill
-                      className='object-cover'
-                      sizes='100vw'
-                      loading='lazy'
-                      style={{ objectFit: 'cover' }}
-                    />
-                    <Badge className='absolute top-2 right-2 capitalize text-xs sm:text-sm'>
-                      {type}
-                    </Badge>
-                  </div>
-                </Card>
-              ))}
+              {carsByType[type]?.map(car => {
+                const imageUrl =
+                  process.env.NEXT_PUBLIC_STRAPI_URL && car.formats?.large?.url
+                    ? process.env.NEXT_PUBLIC_STRAPI_URL + car.formats.large.url
+                    : undefined
+                const altText = car.alternativeText || car.name || 'Car Image'
+                return (
+                  <Card
+                    key={`${type}-${car.id}`}
+                    className='overflow-hidden transition-all hover:shadow-lg p-0 rounded-lg bg-white'>
+                    <div className='aspect-square relative overflow-hidden'>
+                      {imageUrl ? (
+                        <Image
+                          src={imageUrl}
+                          alt={altText}
+                          fill
+                          className='object-cover'
+                          sizes='100vw'
+                          loading='lazy'
+                          style={{ objectFit: 'cover' }}
+                        />
+                      ) : (
+                        <div className='flex items-center justify-center w-full h-full bg-gray-100 text-gray-400'>
+                          No image
+                        </div>
+                      )}
+                      <Badge className='absolute top-2 right-2 capitalize text-xs sm:text-sm'>
+                        {type ? type : 'No type'}
+                      </Badge>
+                    </div>
+                  </Card>
+                )
+              })}
             </div>
           </TabsContent>
         ))}

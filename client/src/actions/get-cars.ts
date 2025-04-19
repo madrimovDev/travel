@@ -1,92 +1,92 @@
 export interface CarsResponse {
-  id: number
-  documentId: string
-  type: string
-  createdAt: string
-  updatedAt: string
-  publishedAt: string
-  car: Car[]
+  id: number | null
+  documentId: string | null
+  type: string | null
+  createdAt: string | null
+  updatedAt: string | null
+  publishedAt: string | null
+  car: Car[] | null
 }
 
 export interface Car {
-  id: number
-  documentId: string
-  name: string
+  id: number | null
+  documentId: string | null
+  name: string | null
   alternativeText: string | null
   caption: string | null
-  width: number
-  height: number
-  formats: Formats
-  hash: string
-  ext: string
-  mime: string
-  size: number
-  url: string
+  width: number | null
+  height: number | null
+  formats: Formats | null
+  hash: string | null
+  ext: string | null
+  mime: string | null
+  size: number | null
+  url: string | null
   previewUrl: string | null
-  provider: string
+  provider: string | null
   provider_metadata: string | null
-  createdAt: string
-  updatedAt: string
-  publishedAt: string
+  createdAt: string | null
+  updatedAt: string | null
+  publishedAt: string | null
 }
 
 export interface Formats {
-  thumbnail: Thumbnail
-  small: Small
-  medium: Medium
-  large: Large
+  thumbnail: Thumbnail | null
+  small: Small | null
+  medium: Medium | null
+  large: Large | null
 }
 
 export interface Thumbnail {
-  name: string
-  hash: string
-  ext: string
-  mime: string
+  name: string | null
+  hash: string | null
+  ext: string | null
+  mime: string | null
   path: string | null
-  width: number
-  height: number
-  size: number
-  sizeInBytes: number
-  url: string
+  width: number | null
+  height: number | null
+  size: number | null
+  sizeInBytes: number | null
+  url: string | null
 }
 
 export interface Small {
-  name: string
-  hash: string
-  ext: string
-  mime: string
+  name: string | null
+  hash: string | null
+  ext: string | null
+  mime: string | null
   path: string | null
-  width: number
-  height: number
-  size: number
-  sizeInBytes: number
-  url: string
+  width: number | null
+  height: number | null
+  size: number | null
+  sizeInBytes: number | null
+  url: string | null
 }
 
 export interface Medium {
-  name: string
-  hash: string
-  ext: string
-  mime: string
+  name: string | null
+  hash: string | null
+  ext: string | null
+  mime: string | null
   path: string | null
-  width: number
-  height: number
-  size: number
-  sizeInBytes: number
-  url: string
+  width: number | null
+  height: number | null
+  size: number | null
+  sizeInBytes: number | null
+  url: string | null
 }
 
 export interface Large {
-  name: string
-  hash: string
-  ext: string
-  mime: string
+  name: string | null
+  hash: string | null
+  ext: string | null
+  mime: string | null
   path: string | null
-  width: number
-  height: number
-  size: number
-  sizeInBytes: number
-  url: string
+  width: number | null
+  height: number | null
+  size: number | null
+  sizeInBytes: number | null
+  url: string | null
 }
 
 export async function getCars(): Promise<{
@@ -109,7 +109,7 @@ export async function getCars(): Promise<{
   const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/cars?${params.toString()}`, {
     cache: 'no-store'
   })
-
+  console.log(res.ok)
   if (!res.ok) {
     throw new Error('Failed to fetch data')
   }

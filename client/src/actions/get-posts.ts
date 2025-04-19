@@ -1,99 +1,99 @@
 'use server'
 
 interface BaseEntity {
-  id: number
-  documentId: string
-  createdAt: string
-  updatedAt: string
-  publishedAt: string
+  id: number | null
+  documentId: string | null
+  createdAt: string | null
+  updatedAt: string | null
+  publishedAt: string | null
 }
 
 interface ImageFormat {
-  name: string
-  hash: string
-  ext: string
-  mime: string
+  name: string | null
+  hash: string | null
+  ext: string | null
+  mime: string | null
   path: string | null
-  width: number
-  height: number
-  size: number
-  sizeInBytes: number
-  url: string
+  width: number | null
+  height: number | null
+  size: number | null
+  sizeInBytes: number | null
+  url: string | null
 }
 
 interface Formats {
-  thumbnail: ImageFormat
-  small: ImageFormat
-  medium: ImageFormat
-  large?: ImageFormat
+  thumbnail: ImageFormat | null
+  small: ImageFormat | null
+  medium: ImageFormat | null
+  large?: ImageFormat | null
 }
 
 interface BaseImage extends BaseEntity {
-  name: string
+  name: string | null
   alternativeText: string | null
   caption: string | null
-  width: number
-  height: number
-  formats: Formats
-  hash: string
-  ext: string
-  mime: string
-  size: number
-  url: string
+  width: number | null
+  height: number | null
+  formats: Formats | null
+  hash: string | null
+  ext: string | null
+  mime: string | null
+  size: number | null
+  url: string | null
   previewUrl: string | null
-  provider: string
+  provider: string | null
   provider_metadata: string | null
 }
 
 export interface Response {
-  data: Post[]
-  meta: Meta
+  data: Post[] | null
+  meta: Meta | null
 }
 
 export interface Post extends BaseEntity {
-  title: string
-  description: string
-  banner: Banner
-  gallery: Gallery[]
-  category: Category
-  details: Detail[]
+  title: string | null
+  description: string | null
+  banner: Banner | null
+  gallery: Gallery[] | null
+  category: Category | null
+  details: Detail[] | null
 }
 
-export type Banner = BaseImage
+export type Banner = BaseImage | null
 
 export interface Gallery extends BaseImage {
   formats: {
-    thumbnail: ImageFormat
-    small: ImageFormat
-    medium: ImageFormat
-    large?: ImageFormat
-  }
+    thumbnail: ImageFormat | null
+    small: ImageFormat | null
+    medium: ImageFormat | null
+    large?: ImageFormat | null
+  } | null
 }
 
 export interface Category extends BaseEntity {
-  title: string
+  title: string | null
   description: string | null
-  name: string
-  viewType: string
-  slug: string
-  order: number
+  name: string | null
+  viewType: string | null
+  slug: string | null
+  order: number | null
 }
 
 export interface Detail {
-  id: number
-  type: string
-  description: string
+  id: number | null
+  type: string | null
+  description: string | null
 }
 
 export interface Meta {
-  pagination: Pagination
+  pagination: Pagination | null
 }
 
 export interface Pagination {
-  page: number
-  pageSize: number
-  pageCount: number
-  total: number
+  page: number | null
+  pageSize: number | null
+  pageCount: number | null
+  total: number | null
 }
 
 export async function getPosts(

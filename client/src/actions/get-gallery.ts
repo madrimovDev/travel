@@ -2,16 +2,16 @@
 
 import { Formats } from './get-global'
 
-interface Gallery {
-  id: number
-  documentId: string
-  name: string
+export interface IGallery {
+  id: number | null
+  documentId: string | null
+  name: string | null
   image: {
-    formats: Formats
-  }
+    formats: Formats | null
+  } | null
 }
 export async function getGallery(): Promise<{
-  data: Gallery[]
+  data: IGallery[]
   meta: { pagination: { page: number; pageSize: number; pageCount: number; total: number } }
 }> {
   const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/galleries?populate=*`, {

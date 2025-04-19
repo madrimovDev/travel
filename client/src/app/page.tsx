@@ -20,7 +20,9 @@ export const metadata = async () => {
       url: process.env.NEXT_PUBLIC_STRAPI_URL,
       images: [
         {
-          url: `${process.env.NEXT_PUBLIC_STRAPI_URL}${data.banner.formats.medium.path}`,
+          url: `${process.env.NEXT_PUBLIC_STRAPI_URL}${
+            data.banner?.formats?.medium?.url ?? data.banner?.formats?.large?.url
+          }`,
           width: 800,
           height: 600
         }
@@ -32,7 +34,10 @@ export const metadata = async () => {
 export default async function Home() {
   const { data } = await getGlobal()
   const imageUrl = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://192.168.3.33:1337'
-  const bannerUrl = `${imageUrl}${data.banner.formats.medium.url}`
+  const bannerUrl =
+    data.banner?.formats?.medium?.url ?? data.banner?.formats?.large?.url
+      ? `${imageUrl}${data.banner?.formats?.medium?.url ?? data.banner?.formats?.large?.url}`
+      : '/default.jpg'
   const { data: categoriesData } = await getCategories()
   const { data: gallery } = await getGallery()
 
@@ -40,8 +45,8 @@ export default async function Home() {
     <div className='overflow-hidden'>
       <Banner
         bannerUrl={bannerUrl}
-        siteName={data.siteName}
-        siteDescription={data.siteDescription}
+        siteName={data.siteName ?? 'Travel Blog'}
+        siteDescription={data.siteDescription ?? ''}
       />
       <div className='container px-4 md:px-6 mx-auto lg:max-w-6xl py-16'>
         <div className='flex items-center gap-3 mb-8'>
@@ -57,9 +62,9 @@ export default async function Home() {
           imageUrl={imageUrl}
         />
         <GallerySection
-          gallery={gallery.map(g => ({
+          gallery={gallery?.map(g => ({
             name: g.name,
-            formats: g.image.formats
+            formats: g.image?.formats || null
           }))}
         />
         <ContactSection

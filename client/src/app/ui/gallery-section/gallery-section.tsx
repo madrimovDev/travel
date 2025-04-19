@@ -3,7 +3,7 @@ import Gallery from '../gallery/gallery'
 import { Camera } from 'lucide-react'
 
 interface GallerySectionProps {
-  gallery: { name: string; formats: Formats }[]
+  gallery: { name: string | null; formats: Formats | null }[]
 }
 
 export default function GallerySection({ gallery }: GallerySectionProps) {

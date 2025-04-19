@@ -15,7 +15,7 @@ export default function Categories({ categoriesData, imageUrl }: CategoriesProps
   return (
     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
       {categoriesData
-        .sort((a, b) => a.order - b.order)
+        .sort((a, b) => (a.order ?? 1) - (b.order ?? 1))
         .map(category => {
           if (category.order === 0) {
             return null
@@ -35,7 +35,7 @@ export default function Categories({ categoriesData, imageUrl }: CategoriesProps
                         {category.image && (
                           <Image
                             src={`${imageUrl}${category.image?.formats?.small?.url}`}
-                            alt={category.name}
+                            alt={category.name ?? ''}
                             width={500}
                             height={200}
                             className='rounded-md h-[220px] object-cover object-center transition-transform duration-300 group-hover:scale-110'

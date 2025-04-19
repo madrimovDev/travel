@@ -41,7 +41,7 @@ export const MobileNavigation = ({
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <div className='flex md:hidden items-center gap-2'>
+    <div className='flex lg:hidden items-center gap-2'>
       {phoneNumber && (
         <a
           href={`tel:${phoneNumber}`}
@@ -83,8 +83,12 @@ export const MobileNavigation = ({
             </Link>
           </SheetHeader>
 
-          <div className='flex flex-wrap gap-2 mb-6'>
-            <ContactInfo phoneNumber={phoneNumber} email={email} className='flex-wrap' />
+          <div className='flex flex-wrap gap-2 px-2 mb-6'>
+            <ContactInfo
+              phoneNumber={phoneNumber}
+              email={email}
+              className='flex-wrap'
+            />
           </div>
 
           <nav className='flex flex-col gap-1 mb-6'>
@@ -100,7 +104,7 @@ export const MobileNavigation = ({
                   className={cn(
                     'flex items-center px-4 py-3 rounded-md text-base transition-all duration-200 relative',
                     'hover:bg-accent/70 hover:shadow-sm',
-                    isLinkActive(link.slug)
+                    isLinkActive(link.slug ?? '')
                       ? 'bg-gradient-to-r from-primary to-primary/90 text-primary-foreground font-semibold shadow-md'
                       : 'hover:translate-x-1'
                   )}
@@ -113,12 +117,12 @@ export const MobileNavigation = ({
 
           <div className='px-4 py-4 border-t'>
             <p className='text-sm text-muted-foreground mb-3'>Связаться с нами:</p>
-            <SocialLinks 
-              facebook={facebook} 
-              instagram={instagram} 
-              whatsapp={whatsapp} 
-              telegram={telegram} 
-              className='flex-wrap' 
+            <SocialLinks
+              facebook={facebook}
+              instagram={instagram}
+              whatsapp={whatsapp}
+              telegram={telegram}
+              className='flex-wrap'
             />
           </div>
         </SheetContent>

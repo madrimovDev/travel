@@ -31,12 +31,12 @@ export default function Navbar({
     <header
       className='sticky top-0 z-40 w-full border-b border-white/20 bg-white/60 dark:bg-[#18181b]/60 backdrop-blur-lg transition-all shadow-xl'
       style={{
-        background: 'linear-gradient(135deg, rgba(255,255,255,0.75) 60%, rgba(59,130,246,0.10) 100%)',
+        background:
+          'linear-gradient(135deg, rgba(255,255,255,0.75) 60%, rgba(59,130,246,0.10) 100%)',
         boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.15)',
         borderBottom: '1.5px solid rgba(255,255,255,0.18)'
-      }}
-    >
-      <div className='container lg:max-w-6xl px-4 md:px-6 mx-auto flex h-16 items-center justify-between'>
+      }}>
+      <div className='container  px-4 md:px-6 mx-auto flex h-16 items-center justify-between'>
         <div className='flex items-center gap-2'>
           <Link
             href='/'
@@ -45,23 +45,26 @@ export default function Navbar({
           </Link>
         </div>
 
-        <DesktopNavigation 
-          categories={categories} 
-          isLinkActive={isLinkActive} 
+        <DesktopNavigation
+          categories={categories}
+          isLinkActive={isLinkActive}
         />
 
-        <div className='hidden md:flex items-center gap-3'>
-          <ContactInfo phoneNumber={phoneNumber} email={email} />
+        <div className='hidden lg:flex items-center gap-3'>
+          <ContactInfo
+            phoneNumber={phoneNumber}
+            email={email}
+          />
           <div className='h-6 w-px mx-1 bg-muted'></div>
-          <SocialLinks 
-            facebook={facebook} 
-            instagram={instagram} 
-            whatsapp={whatsapp} 
-            telegram={telegram} 
+          <SocialLinks
+            facebook={facebook}
+            instagram={instagram}
+            whatsapp={whatsapp}
+            telegram={telegram}
           />
         </div>
 
-        <MobileNavigation 
+        <MobileNavigation
           categories={categories}
           isLinkActive={isLinkActive}
           phoneNumber={phoneNumber}

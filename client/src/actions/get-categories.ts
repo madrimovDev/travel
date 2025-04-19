@@ -1,75 +1,75 @@
 'use server'
 
 export interface Category {
-  id: string | number
-  title: string
-  name: string
-  description: string
-  slug: string
-  viewType: string
-  order: number
+  id: string | number | null
+  title: string | null
+  name: string | null
+  description: string | null
+  slug: string | null
+  viewType: string | null
+  order: number | null
   image: {
-    formats: Formats
-  }
+    formats: Formats | null
+  } | null
 }
 
 export interface Formats {
-  thumbnail: Thumbnail
-  small: Small
-  medium: Medium
-  large: Large
+  thumbnail: Thumbnail | null
+  small: Small | null
+  medium: Medium | null
+  large: Large | null
 }
 
 export interface Thumbnail {
-  name: string
-  hash: string
-  ext: string
-  mime: string
-  path: null
-  width: number
-  height: number
-  size: number
-  sizeInBytes: number
-  url: string
+  name: string | null
+  hash: string | null
+  ext: string | null
+  mime: string | null
+  path: null | null
+  width: number | null
+  height: number | null
+  size: number | null
+  sizeInBytes: number | null
+  url: string | null
 }
 
 export interface Small {
-  name: string
-  hash: string
-  ext: string
-  mime: string
-  path: null
-  width: number
-  height: number
-  size: number
-  sizeInBytes: number
-  url: string
+  name: string | null
+  hash: string | null
+  ext: string | null
+  mime: string | null
+  path: null | null
+  width: number | null
+  height: number | null
+  size: number | null
+  sizeInBytes: number | null
+  url: string | null
 }
 
 export interface Medium {
-  name: string
-  hash: string
-  ext: string
-  mime: string
-  path: null
-  width: number
-  height: number
-  size: number
-  sizeInBytes: number
-  url: string
+  name: string | null
+  hash: string | null
+  ext: string | null
+  mime: string | null
+  path: null | null
+  width: number | null
+  height: number | null
+  size: number | null
+  sizeInBytes: number | null
+  url: string | null
 }
 
 export interface Large {
-  name: string
-  hash: string
-  ext: string
-  mime: string
-  path: null
-  width: number
-  height: number
-  size: number
-  sizeInBytes: number
-  url: string
+  name: string | null
+  hash: string | null
+  ext: string | null
+  mime: string | null
+  path: null | null
+  width: number | null
+  height: number | null
+  size: number | null
+  sizeInBytes: number | null
+  url: string | null
 }
 
 export async function getCategories(): Promise<{
