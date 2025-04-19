@@ -13,15 +13,18 @@ interface PostCardProps {
 const apiUrl = process.env.NEXT_PUBLIC_STRAPI_URL
 
 export function PostCard({ post }: PostCardProps) {
-  const formattedDate = format(new Date(post.publishedAt), 'dd MMM yyyy')
+  const formattedDate = format(
+    new Date(post.publishedAt ?? new Date().toISOString()),
+    'dd MMM yyyy'
+  )
   return (
     <Link href={`/post/${post.documentId}`}>
       <Card className='overflow-hidden h-full flex flex-col hover:shadow-md transition-shadow'>
         <div className='relative aspect-video'>
           {post.banner && (
             <Image
-              src={apiUrl + post.banner.url}
-              alt={post.banner.alternativeText || post.title}
+              src={apiUrl && post.banner.url ? apiUrl + post.banner.url : '/default.jpg'}
+              alt={post.banner.alternativeText ?? post.title ?? ''}
               fill
               className='object-cover'
             />
