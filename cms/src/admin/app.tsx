@@ -34,32 +34,32 @@ export default {
   },
     bootstrap(app: StrapiApp) {
     
-      // const style = document.createElement('style');
-      // style.innerHTML = `
-      //   /* Скрываем страницу настроек */
-      //   [href*="/settings"] { 
-      //     display: none !important; 
-      //   }
-      //   /* Скрываем иконку настроек */
-      //   a[href*="/settings"], button[data-for="settings"] {
-      //     display: none !important;
-      //   }
+      const style = document.createElement('style');
+      style.innerHTML = `
+        /* Скрываем страницу настроек */
+        [href*="/settings"] { 
+          display: none !important; 
+        }
+        /* Скрываем иконку настроек */
+        a[href*="/settings"], button[data-for="settings"] {
+          display: none !important;
+        }
         
-      //   /* Скрываем Marketplace */
-      //   [href*="/marketplace"], a[href*="/marketplace"], div[data-for="marketplace"] {
-      //     display: none !important;
-      //   }
+        /* Скрываем Marketplace */
+        [href*="/marketplace"], a[href*="/marketplace"], div[data-for="marketplace"] {
+          display: none !important;
+        }
         
-      //   /* Скрываем Deploy */
-      //   [href*="/deploy"], a[href*="/plugins/cloud"], div[data-for="deploy"] {
-      //     display: none !important;
-      //   }
+        /* Скрываем Deploy */
+        [href*="/deploy"], a[href*="/plugins/cloud"], div[data-for="deploy"] {
+          display: none !important;
+        }
         
-      //   /* Скрываем Content-Builder */
-      //   [href*="/content-type-builder"], a[href*="/plugins/content-type-builder"], div[data-for="content-type-builder"] {
-      //     display: none !important;
-      //   }
-      // `;
-      // document.head.appendChild(style);
+        /* Скрываем Content-Builder */
+        [href*="/content-type-builder"], a[href*="/plugins/content-type-builder"], div[data-for="content-type-builder"] {
+          display: none !important;
+        }
+      `;
+      document.head.appendChild(style);
     }
 };
