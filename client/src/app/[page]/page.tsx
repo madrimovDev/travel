@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: { params: Promise<{ page: str
   // Базовые значения по умолчанию
   const defaultTitle = 'All Posts'
   const defaultDescription = 'Explore our collection of travel posts and adventures'
-  const defaultImage = `${process.env.NEXT_PUBLIC_STRAPI_URL}/default-og.jpg`
+  const defaultImage = `/default.jpg`
 
   let imageUrl = defaultImage
   if (data && data.length > 0) {
@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: { params: Promise<{ page: str
       openGraph: {
         title: defaultTitle,
         description: defaultDescription,
-        url: `${process.env.NEXT_PUBLIC_STRAPI_URL}/${page}`,
+        url: `${process.env.NEXT_PUBLIC_BASE_URL}/${page}`,
         type: 'website',
         locale: 'en_US',
         siteName: 'Travel Blog',
@@ -64,7 +64,7 @@ export async function generateMetadata({ params }: { params: Promise<{ page: str
         images: [imageUrl]
       },
       alternates: {
-        canonical: `${process.env.NEXT_PUBLIC_STRAPI_URL}/${page}`
+        canonical: `${process.env.NEXT_PUBLIC_BASE_URL}/${page}`
       },
       robots: {
         index: true,
@@ -76,7 +76,7 @@ export async function generateMetadata({ params }: { params: Promise<{ page: str
   const title = data[0]?.category?.title || defaultTitle
   const description = data[0]?.category?.description || defaultDescription
   const categoryKeywords = 'travel, blog, adventures'
-  const canonicalUrl = `${process.env.NEXT_PUBLIC_STRAPI_URL}/${page}`
+  const canonicalUrl = `${process.env.NEXT_PUBLIC_URL}/${page}`
 
   return {
     title,

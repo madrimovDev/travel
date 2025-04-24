@@ -21,7 +21,7 @@ export const metadata = async () => {
       images: [
         {
           url: `${process.env.NEXT_PUBLIC_STRAPI_URL}${
-            data.banner?.formats?.medium?.url ?? data.banner?.formats?.large?.url
+            data.banner?.formats?.large?.url ?? data.banner?.formats?.medium?.url
           }`,
           width: 800,
           height: 600
@@ -35,8 +35,8 @@ export default async function Home() {
   const { data } = await getGlobal()
   const imageUrl = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://192.168.3.33:1337'
   const bannerUrl =
-    data.banner?.formats?.medium?.url ?? data.banner?.formats?.large?.url
-      ? `${imageUrl}${data.banner?.formats?.medium?.url ?? data.banner?.formats?.large?.url}`
+    data.banner?.formats?.large?.url ?? data.banner?.formats?.medium?.url
+      ? `${imageUrl}${data.banner?.formats?.large?.url ?? data.banner?.formats?.medium?.url}`
       : '/default.jpg'
   const { data: categoriesData } = await getCategories()
   const { data: gallery } = await getGallery()
