@@ -40,8 +40,8 @@ export default function Navbar({
         <div className='flex items-center gap-2'>
           <Link
             href='/'
-            className='font-bold text-xl tracking-tight hover:text-primary transition-colors'>
-            TravelApp
+            className='font-bold text-xl tracking-tight text-primary/90 hover:text-primary transition-colors'>
+            Travel Khiva
           </Link>
         </div>
 

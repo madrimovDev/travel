@@ -12,7 +12,10 @@ export const revalidate = 3600 // 1 hour
 export const metadata = async () => {
   const { data } = await getGlobal()
   return {
-    title: data.siteName,
+    title: {
+      default: data.siteName,
+      template: `%s | ${data.siteName}`
+    },
     description: data.siteDescription,
     openGraph: {
       title: data.siteName,

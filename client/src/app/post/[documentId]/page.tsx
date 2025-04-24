@@ -35,32 +35,95 @@ const apiUrl = process.env.NEXT_PUBLIC_STRAPI_URL
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { documentId } = await params
   const { data } = await getPost(documentId)
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://travelkhiva.uz'
+  const apiUrl = process.env.NEXT_PUBLIC_STRAPI_URL || ''
+  const canonicalUrl = `${baseUrl}/post/${documentId}`
 
-  if (!data || !data.banner || !data.category) {
+  if (!data) {
     return {
-      title: 'Post not found',
-      description: 'The requested post could not be found'
+      title: 'Post not found | TravelKhiva.uz',
+      description: 'The requested post could not be found',
+      robots: { index: false, follow: false }
     }
   }
 
+  // Обработка изображений
+  const bannerUrl = data.banner?.url 
+    ? (data.banner.url.startsWith('http') ? data.banner.url : `${apiUrl}${data.banner.url}`)
+    : `${baseUrl}/default.jpg`
+
+  // Генерация ключевых слов на основе данных поста
+  const postKeywords = [
+    data.title,
+    data.category?.name,
+    'Khiva travel',
+    'Uzbekistan tours',
+    'Travel guide',
+    ...(data.details?.map(detail => detail.type) || []),
+    `${data.category?.name || 'travel'} in Khiva`,
+    `${data.category?.name || 'travel'} Uzbekistan`,
+    'TravelKhiva.uz',
+    'tourist attractions',
+    'Uzbekistan tourism',
+    'travel blog',
+    'Silk Road',
+    'Central Asia travel'
+  ].filter(Boolean).join(', ')
+
+  // Извлекаем дату для структурированных данных
+  const publishDate = data.publishedAt 
+    ? new Date(data.publishedAt).toISOString()
+    : new Date().toISOString()
+
+  // Создаем строку для авторов
+  const authorName = 'TravelKhiva.uz'
+
   return {
-    title: data.title,
-    description: data.description,
+    title: `${data.title || 'Adventure'} | TravelKhiva.uz`,
+    description: data.description || `Explore this amazing travel opportunity in Khiva, Uzbekistan with TravelKhiva.uz.`,
+    keywords: postKeywords,
+    authors: [{ name: authorName }],
     openGraph: {
-      title: data.title ?? ' | Adventure',
-      description: data.description ?? '',
-      type: 'article'
+      title: `${data.title || 'Adventure'} | TravelKhiva.uz`,
+      description: data.description || 'Discover amazing travel opportunities in Khiva',
+      url: canonicalUrl,
+      type: 'article',
+      publishedTime: publishDate,
+      modifiedTime: data.updatedAt || publishDate,
+      authors: [authorName],
+      tags: [data.category?.name || 'travel'],
+      images: [
+        {
+          url: bannerUrl,
+          width: 1200,
+          height: 630,
+          alt: data.banner?.alternativeText || data.title || 'Travel post image'
+        }
+      ],
+      siteName: 'TravelKhiva.uz',
+      locale: 'en_US'
     },
     twitter: {
       card: 'summary_large_image',
-      title: data.title ?? ' | Adventure',
-      description: data.description ?? '',
-      images: data.banner && data.banner.url ? [apiUrl + data.banner.url] : []
+      title: `${data.title || 'Adventure'} | TravelKhiva.uz`,
+      description: data.description || 'Discover amazing travel opportunities in Khiva',
+      images: [bannerUrl],
+      creator: '@travelkhiva'
     },
     alternates: {
-      canonical: `/post/${documentId}`
+      canonical: canonicalUrl
     },
-    keywords: [data.category?.name ?? 'adventure', data.title ?? '']
+    robots: {
+      index: true,
+      follow: true,
+      'max-snippet': 150,
+      'max-image-preview': 'large',
+      'max-video-preview': -1
+    },
+    other: {
+      'language': 'English',
+      'revisit-after': '7 days'
+    },
   }
 }
 
