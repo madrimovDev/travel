@@ -30,6 +30,9 @@ export const metadata = async () => {
           height: 600
         }
       ]
+    },
+    other: {
+      "yandex-verification": "01a75f239e61083c"
     }
   }
 }
