@@ -14,8 +14,7 @@ export default function GallerySection({ gallery }: GallerySectionProps) {
         <h2 className='text-2xl md:text-4xl font-bold'>Our Travel Gallery</h2>
       </div>
       <p className='text-lg text-muted-foreground mb-8 max-w-3xl'>
-        Immerse yourself in the beauty of our destinations through our carefully curated gallery.
-        These images capture the essence of the experiences waiting for you.
+      Explore our travel gallery and experience the beauty of Khiva through stunning photos. Get inspired for your next adventure!
       </p>
       <Gallery gallery={gallery} />
     </div>

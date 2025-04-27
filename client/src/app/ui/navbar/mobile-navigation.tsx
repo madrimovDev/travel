@@ -67,19 +67,23 @@ export const MobileNavigation = ({
             size='icon'
             className='rounded-full hover:bg-accent/80 ml-2'>
             <Menu className='h-5 w-5' />
-            <span className='sr-only'>Меню</span>
+            <span className='sr-only'>
+              Menu
+            </span>
           </Button>
         </SheetTrigger>
         <SheetContent
           side='right'
           className='border-l border-accent/20 w-full bg-background/95 backdrop-blur-md'>
           <SheetHeader className='mb-6'>
-            <SheetTitle className='sr-only'>Навигационное меню</SheetTitle>
+            <SheetTitle className='sr-only'>
+              Travel Khiva - Navigation Menu
+            </SheetTitle>
             <Link
               href='/'
               className='font-bold text-xl tracking-tight hover:text-primary transition-colors'
               onClick={() => setIsOpen(false)}>
-              TravelApp
+              Travel Khiva
             </Link>
           </SheetHeader>
 
@@ -116,7 +120,7 @@ export const MobileNavigation = ({
           </nav>
 
           <div className='px-4 py-4 border-t'>
-            <p className='text-sm text-muted-foreground mb-3'>Связаться с нами:</p>
+            <p className='text-sm text-muted-foreground mb-3'>Contact us:</p>
             <SocialLinks
               facebook={facebook}
               instagram={instagram}

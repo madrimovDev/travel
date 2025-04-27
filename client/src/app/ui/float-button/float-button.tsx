@@ -210,6 +210,7 @@ export default function FloatButton({
           <Button
             size='icon'
             onClick={toggleOpen}
+            aria-label={isOpen ? "Close contact menu" : "Open contact menu"}
             className='sm:h-14 sm:w-14 h-14 w-14 rounded-full shadow-lg hover:shadow-xl transition-all relative z-10'
             style={{
               backgroundColor: isOpen ? '#f43f5e' : '#3b82f6',

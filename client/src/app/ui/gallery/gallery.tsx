@@ -13,7 +13,12 @@ interface Props {
 
 export default function Gallery({ gallery }: Props) {
   if (!gallery || gallery.length === 0) {
-    return <div className='text-center py-10'>Нет доступных изображений</div>
+    return <div className='text-center py-10'>
+      <h2 className='text-2xl md:text-4xl font-bold'>Gallery is empty</h2>
+      <p className='text-lg text-muted-foreground mb-8 max-w-3xl'>
+        No images available at the moment. Please check back later.
+      </p>
+    </div>
   }
 
   return (

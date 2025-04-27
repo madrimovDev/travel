@@ -15,8 +15,7 @@ export default function ContactSection({ phoneNumber, email, address }: ContactS
         <h2 className='text-2xl md:text-4xl font-bold'>Our Contact</h2>
       </div>
       <p className='text-lg text-muted-foreground mb-8 max-w-3xl'>
-        Discover our carefully curated travel experiences designed to create unforgettable memories.
-        Select a category to begin your journey.
+      Have questions or need assistance? Get in touch with us — we&apos;re here to help you plan your perfect Khiva experience!
       </p>
       {phoneNumber && email && address ? (
         <Contact

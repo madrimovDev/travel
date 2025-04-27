@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: { params: Promise<{ page: str
   const { page } = resolvedParams
   
   // Базовые значения по умолчанию
-  const defaultTitle = 'All Posts | TravelKhiva.uz'
+  const defaultTitle = 'All Posts'
   const defaultDescription = 'Explore our collection of travel posts, guides and adventures in Khiva, Uzbekistan. Discover historical places, tours, and top attractions.'
   const defaultImage = `/default.jpg`
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://travelkhiva.uz'

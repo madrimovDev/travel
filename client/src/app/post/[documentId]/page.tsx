@@ -79,7 +79,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const authorName = 'TravelKhiva.uz'
 
   return {
-    title: `${data.title || 'Adventure'} | TravelKhiva.uz`,
+    title: `${data.title || 'Adventure'}`,
     description: data.description || `Explore this amazing travel opportunity in Khiva, Uzbekistan with TravelKhiva.uz.`,
     keywords: postKeywords,
     authors: [{ name: authorName }],

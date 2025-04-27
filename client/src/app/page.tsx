@@ -14,7 +14,7 @@ export const metadata = async () => {
   return {
     title: {
       default: data.siteName,
-      template: `%s | ${data.siteName}`
+      template: `${data.siteName} | %s `
     },
     description: data.siteDescription,
     openGraph: {
@@ -57,8 +57,7 @@ export default async function Home() {
           <h2 className='text-2xl md:text-4xl font-bold'>Our Travel Categories</h2>
         </div>
         <p className='text-lg text-muted-foreground mb-8 max-w-3xl'>
-          Discover our carefully curated travel experiences designed to create unforgettable
-          memories. Select a category to begin your journey.
+        Discover a variety of travel categories tailored for every explorer — from historical tours and cultural experiences to relaxing getaways. Find the perfect journey that matches your adventure spirit!
         </p>
         <Categories
           categoriesData={categoriesData}
