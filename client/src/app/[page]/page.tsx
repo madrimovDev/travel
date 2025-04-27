@@ -127,7 +127,7 @@ export async function generateMetadata({ params }: { params: Promise<{ page: str
   const categoryKeywords = `${categoryTitle}, ${specificKeywords}, ${baseKeywords}`
 
   return {
-    title: `${categoryTitle} | TravelKhiva.uz`,
+    title: `${categoryTitle}`,
     description: categoryDescription,
     keywords: categoryKeywords,
     openGraph: {
