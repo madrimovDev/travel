@@ -82,7 +82,7 @@ export async function generateMetadata({ params }: { params: Promise<{ page: str
 
   if (!data || data.length === 0) {
     return {
-      title: `${page.charAt(0).toUpperCase() + page.slice(1)} | TravelKhiva.uz`,
+      title: `${page.charAt(0).toUpperCase() + page.slice(1)}`,
       description: `Explore ${page} in Khiva, Uzbekistan. Find the best travel guides, tips and services.`,
       keywords: `${page}, ${baseKeywords}, ${transportKeywords}`,
       openGraph: {
