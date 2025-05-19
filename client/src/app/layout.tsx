@@ -12,21 +12,23 @@ import NavigateTop from './ui/navigate-top'
 
 export const metadata = {
   title: {
-    default: 'TravelKhiva.uz - Journey to the Heart of Uzbekistan',
-    template: '%s | TravelKhiva.uz'
+    default: 'travelkhiva.uz - Journey to the Heart of Uzbekistan',
+    template: '%s | travelkhiva.uz'
   },
   description: 'Tourism services and transportation in Khiva. Tours of historical sites, private excursions and transfers. Explore the ancient city of Khiva with professional guides.',
   keywords: [
     'Khiva travel', 'Travel to Khiva', 'Khiva tours', 'Visit Khiva Uzbekistan',
     'Historical places in Khiva', 'Things to do in Khiva', 'Khiva travel guide',
     'Khiva tourist attractions', 'Khiva transport services', 'Private car to Khiva',
-    'Khiva airport transfers', 'Uzbekistan private drivers', 'TravelKhiva.uz'
+    'Khiva airport transfers', 'Uzbekistan private drivers', 'travelkhiva.uz', 'Khiva tourism',
+    'Khiva excursions', 'Khiva tours and transfers', 'Khiva travel services',
+    'Khiva travel agency', 'Khiva guided tours', 'Khiva sightseeing tours'
   ],
   openGraph: {
-    title: 'TravelKhiva.uz - Travel and Transport in Khiva, Uzbekistan',
+    title: 'travelkhiva.uz - Travel and Transport in Khiva, Uzbekistan',
     description: 'Professional tourism and transportation services in Khiva. Individual tours, transfers and excursions to historical attractions.',
     url: 'https://travelkhiva.uz',
-    siteName: 'TravelKhiva.uz',
+    siteName: 'travelkhiva.uz',
     locale: 'en_US',
     type: 'website',
     images: [

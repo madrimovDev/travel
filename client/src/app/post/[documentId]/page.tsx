@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!data) {
     return {
-      title: 'Post not found | TravelKhiva.uz',
+      title: 'Post not found | travelkhiva.uz',
       description: 'The requested post could not be found',
       robots: { index: false, follow: false }
     }
@@ -76,7 +76,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     : new Date().toISOString()
 
   // Создаем строку для авторов
-  const authorName = 'TravelKhiva.uz'
+  const authorName = 'travelkhiva.uz'
 
   return {
     title: `${data.title || 'Adventure'}`,

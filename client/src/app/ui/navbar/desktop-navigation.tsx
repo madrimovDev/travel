@@ -19,7 +19,12 @@ export const DesktopNavigation = ({ categories, isLinkActive }: DesktopNavigatio
   return (
     <NavigationMenu className='hidden lg:flex'>
       <NavigationMenuList className='gap-1'>
-        {categories.map(link => (
+        {categories.sort((a, b) => {
+          if (a.order && b.order) {
+            return a.order - b.order
+          }
+          return 0
+        }).map(link => (
           <NavigationMenuItem key={link.slug}>
             <Link
               passHref
