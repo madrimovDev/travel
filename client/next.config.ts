@@ -25,6 +25,10 @@ const nextConfig: NextConfig = {
         protocol: 'http',
         hostname: 'localhost'
       },
+{
+protocol: 'https',
+hostname: 'api.travelkhiva.uz'
+},
       {
         protocol: 'http',
         hostname: 'travel-api.madrimov.uz'
