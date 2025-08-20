@@ -24,6 +24,7 @@ import Markdown from 'react-markdown'
 import EmptyState from '@/components/empty-state'
 import { Metadata } from 'next'
 import { normalizeType } from '@/lib/utils'
+import PostJsonLd from './ui/post-jsonld'
 
 export const revalidate = 3600 // 1 hour
 
@@ -141,6 +142,7 @@ export default async function PostPage({ params }: Props) {
 
   return (
     <div className='container mx-auto px-4 py-8 max-w-5xl'>
+      <PostJsonLd post={data} baseUrl={process.env.NEXT_PUBLIC_BASE_URL || 'https://travelkhiva.uz'} />
       <nav className='flex flex-wrap items-center space-x-2 mb-6 text-sm'>
         <Link
           href='/'

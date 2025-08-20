@@ -102,13 +102,8 @@ export async function generateMetadata({ params }: { params: Promise<{ page: str
       },
       alternates: { canonical: canonicalUrl },
       robots: { index: true, follow: true },
-      other: {
-        'language': 'English',
-        'revisit-after': '7 days'
-      },
-      // JSON-LD разметка для лучшего понимания поисковыми системами
       verification: {
-        'google-site-verification': process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION || ''
+        google: process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION || undefined
       },
     }
   }
@@ -153,9 +148,8 @@ export async function generateMetadata({ params }: { params: Promise<{ page: str
       index: true,
       follow: true
     },
-    other: {
-      'language': 'English',
-      'revisit-after': '7 days'
+    verification: {
+      google: process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION || undefined
     }
   }
 }
@@ -163,6 +157,7 @@ export async function generateMetadata({ params }: { params: Promise<{ page: str
 export default async function Page({ params }: PageProps) {
   const resolvedParams = await params
   const { page } = resolvedParams
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://travelkhiva.uz'
 
   const posts = await getPosts(page, 1, 20)
   const category = posts.data && posts.data[0]?.category
@@ -174,6 +169,20 @@ export default async function Page({ params }: PageProps) {
   return (
     <main className='min-h-screen py-8'>
       <div className='container max-w-6xl mx-auto px-4'>
+        {/* Breadcrumb JSON-LD */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'BreadcrumbList',
+              itemListElement: [
+                { '@type': 'ListItem', position: 1, name: 'Home', item: baseUrl },
+                { '@type': 'ListItem', position: 2, name: category?.title || page, item: `${baseUrl}/${page}` }
+              ]
+            })
+          }}
+        />
         <h1>
           {category && category.title ? (
             <span className='text-2xl font-bold'>{category.title}</span>

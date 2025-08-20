@@ -3,7 +3,7 @@ import { getCategories } from "@/actions/get-categories"
 import { getPosts } from "@/actions/get-posts"
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://yourwebsite.com'
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://travelkhiva.uz'
   
   // Get all categories
   const { data: categories } = await getCategories()
@@ -49,9 +49,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         // Add posts from this category to the sitemap
         const categoryPostPages = categoryPosts.map(post => ({
           url: `${baseUrl}/post/${post.documentId}`,
-          lastModified: post.updatedAt ? new Date(post.updatedAt) : new Date(),
-          changeFrequency: 'monthly' as const,
-          priority: 0.6,
+          lastModified: post.updatedAt ? new Date(post.updatedAt) : (post.publishedAt ? new Date(post.publishedAt) : new Date()),
+          changeFrequency: 'weekly' as const,
+          priority: 0.7,
         }))
         
         postPages = [...postPages, ...categoryPostPages]
@@ -61,6 +61,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   
   return [
     homePage,
+    { url: `${baseUrl}/cars`, lastModified: new Date(), changeFrequency: 'weekly' as const, priority: 0.7 },
     ...categoryPages,
     ...postPages,
   ]

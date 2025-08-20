@@ -9,8 +9,12 @@ import { getGlobal } from '@/actions/get-global'
 import { Facebook, Instagram, PhoneCall, Send as Telegram } from 'lucide-react'
 import { WhatsAppIcon } from './ui/icons/whatsapp-icon'
 import NavigateTop from './ui/navigate-top'
+// JSON-LD inline injection below
+
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://travelkhiva.uz'
 
 export const metadata = {
+  metadataBase: new URL(baseUrl),
   title: {
     default: 'travelkhiva.uz - Journey to the Heart of Uzbekistan',
     template: '%s | travelkhiva.uz'
@@ -27,7 +31,7 @@ export const metadata = {
   openGraph: {
     title: 'travelkhiva.uz - Travel and Transport in Khiva, Uzbekistan',
     description: 'Professional tourism and transportation services in Khiva. Individual tours, transfers and excursions to historical attractions.',
-    url: 'https://travelkhiva.uz',
+    url: baseUrl,
     siteName: 'travelkhiva.uz',
     locale: 'en_US',
     type: 'website',
@@ -45,8 +49,17 @@ export const metadata = {
     follow: true,
   },
   alternates: {
-    canonical: 'https://travelkhiva.uz',
+    canonical: baseUrl,
   },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@travelkhiva',
+    creator: '@travelkhiva'
+  },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION || undefined,
+    yandex: '01a75f239e61083c'
+  }
 }
 
 const geistSans = Geist({
@@ -108,6 +121,35 @@ export default async function RootLayout({
       className='h-full'>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-full`}>
+        <script
+          type='application/ld+json'
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              name: data.siteName ?? 'travelkhiva.uz',
+              url: baseUrl,
+              description: data.siteDescription ?? '',
+              potentialAction: {
+                '@type': 'SearchAction',
+                target: `${baseUrl}/search?q={search_term_string}`,
+                'query-input': 'required name=search_term_string'
+              }
+            })
+          }}
+        />
+        <script
+          type='application/ld+json'
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Organization',
+              name: data.siteName ?? 'travelkhiva.uz',
+              url: baseUrl,
+              sameAs: [data.facebook, data.instagram, data.telegram, data.whatsapp].filter(Boolean)
+            })
+          }}
+        />
         <main className='flex-1 h-full'>
           <Navbar
             categories={categories.data}

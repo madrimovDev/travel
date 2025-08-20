@@ -9,8 +9,13 @@ import ContactSection from './ui/contact-section/contact-section'
 
 export const revalidate = 3600 // 1 hour
 
-export const metadata = async () => {
+export async function generateMetadata() {
   const { data } = await getGlobal()
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://travelkhiva.uz'
+  const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_URL || ''
+  const bannerPath = data.banner?.formats?.large?.url ?? data.banner?.formats?.medium?.url
+  const bannerUrl = bannerPath ? (bannerPath.startsWith('http') ? bannerPath : `${strapiUrl}${bannerPath}`) : `${baseUrl}/default.jpg`
+
   return {
     title: {
       default: data.siteName,
@@ -20,19 +25,21 @@ export const metadata = async () => {
     openGraph: {
       title: data.siteName,
       description: data.siteDescription,
-      url: process.env.NEXT_PUBLIC_STRAPI_URL,
+      url: baseUrl,
       images: [
-        {
-          url: `${process.env.NEXT_PUBLIC_STRAPI_URL}${
-            data.banner?.formats?.large?.url ?? data.banner?.formats?.medium?.url
-          }`,
-          width: 800,
-          height: 600
-        }
+        { url: bannerUrl, width: 1200, height: 630, alt: data.siteName ?? 'TravelKhiva.uz' }
       ]
     },
-    other: {
-      "yandex-verification": "01a75f239e61083c"
+    twitter: {
+      card: 'summary_large_image',
+      title: data.siteName ?? 'TravelKhiva.uz',
+      description: data.siteDescription ?? '',
+      images: [bannerUrl]
+    },
+    alternates: { canonical: baseUrl },
+    verification: {
+      google: process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION || undefined,
+      yandex: '01a75f239e61083c'
     }
   }
 }
