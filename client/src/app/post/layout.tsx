@@ -1,9 +1,5 @@
-import { PropsWithChildren } from 'react'
+import { ReactNode } from 'react'
 
-interface Props {
-  params: Promise<{ documentId: string }>
-}
-
-export default async function layout({ children }: PropsWithChildren<Props>) {
+export default function PostLayout({ children }: { children: ReactNode }) {
   return <>{children}</>
 }
